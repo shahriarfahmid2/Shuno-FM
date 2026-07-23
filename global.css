@@ -1,0 +1,46 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+/**
+ * Design tokens from the Shuno FM Figma file.
+ * Mirrored in constants/theme/ for StyleSheet/dynamic-style contexts —
+ * keep both in sync when the design changes.
+ */
+@theme {
+  /* Colors */
+  --color-primary: #e04242;
+  --color-ink: #000000;
+  --color-ink-secondary: #393939;
+  --color-ink-tertiary: #4e4e4e;
+  --color-muted: #797979;
+  --color-muted-inverse: #ececec;
+
+  /* Font families — filenames must match each font's real PostScript name,
+     see assets/fonts/README.md */
+  --font-aeonik-regular: "Aeonik-Regular";
+  --font-aeonik-medium: "Aeonik-Medium";
+  --font-aeonik-bold: "Aeonik-Bold";
+  --font-li-ador-regular: "LiAdorNoirrit-Regular";
+  --font-li-ador-semibold: "LiAdorNoirrit-SemiBold";
+  --font-li-ador-bold: "LiAdorNoirrit-Bold";
+  --font-kalpurush: "Kalpurush-Regular";
+
+  /* Type scale — matches the named text styles in Figma */
+  --text-h1: 2.25rem; /* 36px — Main Headline */
+  --text-h1--line-height: 1.26;
+  --text-h2: 1.75rem; /* 28px */
+  --text-h2--line-height: 1.26;
+  --text-h3: 1.5rem; /* 24px — 1st main */
+  --text-h3--line-height: 1.26;
+  --text-h4: 1.125rem; /* 18px — 2nd main */
+  --text-h4--line-height: 1.2;
+  --text-h5: 1rem; /* 16px — 3rd main */
+  --text-h5--line-height: 1.2;
+  --text-body: 1rem; /* 16px — Kalpurush body */
+  --text-body--line-height: 1.41;
+  --text-caption: 0.8125rem; /* 13px — Kalpurush caption */
+  --text-caption--line-height: 1.2;
+}
