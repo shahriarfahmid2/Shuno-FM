@@ -12,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "backgroundColor": "#000000",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -27,6 +28,9 @@
     },
     "plugins": [
       "expo-router",
+      "expo-system-ui",
+      "expo-secure-store",
+      "@clerk/expo",
       [
         "expo-splash-screen",
         {
@@ -41,8 +45,7 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
+      "typedRoutes": true
     }
   }
 }
