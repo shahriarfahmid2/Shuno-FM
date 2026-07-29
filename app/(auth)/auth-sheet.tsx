@@ -2,8 +2,10 @@ import { images } from "@/constants/images";
 import { useSignIn, useSignUp, useSSO } from "@clerk/expo";
 import { Image } from "expo-image";
 import { Href, router, Stack, useLocalSearchParams, useNavigation } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Animated,
   Dimensions,
   Easing,
@@ -37,6 +39,7 @@ type LoginCardProps = {
   onSubmit: () => void;
   onGoogleSignIn: () => void;
   submitting: boolean;
+  googleLoading: boolean;
   errorMessage?: string;
 };
 
@@ -48,6 +51,7 @@ function LoginCard({
   onSubmit,
   onGoogleSignIn,
   submitting,
+  googleLoading,
   errorMessage,
 }: LoginCardProps) {
   // Local, client-side format check — runs before onSubmit ever calls Clerk,
@@ -142,11 +146,18 @@ function LoginCard({
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={onGoogleSignIn}
+        disabled={submitting}
         style={{ position: "absolute", left: 24, top: 266 + shift, width: 346, height: 53 }}
         className="flex-row items-center justify-center gap-2 rounded-full border-[1.2px] border-[#dbdbdb] bg-white"
       >
-        <Image source={images.onboardingGmailIcon} style={{ width: 20, height: 20 }} contentFit="contain" />
-        <Text className="font-aeonik-medium text-[16px] leading-[19.2px] text-black">Continue with google</Text>
+        {googleLoading ? (
+          <ActivityIndicator color="#000000" />
+        ) : (
+          <>
+            <Image source={images.onboardingGmailIcon} style={{ width: 20, height: 20 }} contentFit="contain" />
+            <Text className="font-aeonik-medium text-[16px] leading-[19.2px] text-black">Continue with google</Text>
+          </>
+        )}
       </TouchableOpacity>
 
       <Text
@@ -173,6 +184,7 @@ type SignupCardProps = {
   onSubmit: () => void;
   onGoogleSignIn: () => void;
   submitting: boolean;
+  googleLoading: boolean;
   errorMessage?: string;
 };
 
@@ -190,6 +202,7 @@ function SignupCard({
   onSubmit,
   onGoogleSignIn,
   submitting,
+  googleLoading,
   errorMessage,
 }: SignupCardProps) {
   // Client-side, on-submit validation for all three fields. Kept local (not
@@ -361,11 +374,18 @@ function SignupCard({
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={onGoogleSignIn}
+        disabled={submitting}
         style={{ position: "absolute", left: 24, top: 338 + shift, width: 346, height: 53 }}
         className="flex-row items-center justify-center gap-2 rounded-full border-[1.2px] border-[#dbdbdb] bg-white"
       >
-        <Image source={images.onboardingGmailIcon} style={{ width: 20, height: 20 }} contentFit="contain" />
-        <Text className="font-aeonik-medium text-[16px] leading-[19.2px] text-black">Continue with google</Text>
+        {googleLoading ? (
+          <ActivityIndicator color="#000000" />
+        ) : (
+          <>
+            <Image source={images.onboardingGmailIcon} style={{ width: 20, height: 20 }} contentFit="contain" />
+            <Text className="font-aeonik-medium text-[16px] leading-[19.2px] text-black">Continue with google</Text>
+          </>
+        )}
       </TouchableOpacity>
 
       <Text
@@ -539,6 +559,16 @@ export default function AuthSheetScreen() {
     };
   }, []);
 
+  // Pre-warms Android's Custom Tab process so tapping "Continue with
+  // google" doesn't pay that cold-start cost on top of the OAuth round
+  // trip — shaves visible latency off the browser-open/close handoff.
+  useEffect(() => {
+    void WebBrowser.warmUpAsync();
+    return () => {
+      void WebBrowser.coolDownAsync();
+    };
+  }, []);
+
   const handleLoginSubmit = async () => {
     const { error } = await signIn.emailCode.sendCode({ emailAddress: loginEmail });
     if (error) {
@@ -582,10 +612,15 @@ export default function AuthSheetScreen() {
             if (session?.currentTask) {
               return;
             }
-            const url = decorateUrl("/home");
+            const url = decorateUrl("/onboarding/welcome");
             if (url.startsWith("http")) {
               if (typeof window !== "undefined") window.location.href = url;
             } else {
+              // dismissAll() first clears the onboarding/sign-up/login screens
+              // still sitting underneath in the stack — without it, back from
+              // home would walk straight back through the auth flow instead
+              // of leaving the app.
+              router.dismissAll();
               router.replace(url as Href);
             }
           },
@@ -603,10 +638,15 @@ export default function AuthSheetScreen() {
             if (session?.currentTask) {
               return;
             }
-            const url = decorateUrl("/home");
+            const url = decorateUrl("/onboarding/welcome");
             if (url.startsWith("http")) {
               if (typeof window !== "undefined") window.location.href = url;
             } else {
+              // dismissAll() first clears the onboarding/sign-up/login screens
+              // still sitting underneath in the stack — without it, back from
+              // home would walk straight back through the auth flow instead
+              // of leaving the app.
+              router.dismissAll();
               router.replace(url as Href);
             }
           },
@@ -673,7 +713,12 @@ export default function AuthSheetScreen() {
       const { createdSessionId, setActive } = await startSSOFlow({ strategy: "oauth_google" });
       if (createdSessionId && setActive) {
         await setActive({ session: createdSessionId });
-        router.replace("/home");
+        // dismissAll() first clears the onboarding/sign-up/login screens
+        // still sitting underneath in the stack — without it, back from home
+        // would walk straight back through the auth flow instead of leaving
+        // the app.
+        router.dismissAll();
+        router.replace("/onboarding/welcome");
       }
       // No createdSessionId means the user cancelled — nothing to do.
     } catch (err) {
@@ -797,6 +842,7 @@ export default function AuthSheetScreen() {
               onSubmit={handleLoginSubmit}
               onGoogleSignIn={handleGoogleSignIn}
               submitting={signInFetchStatus === "fetching" || ssoLoading}
+              googleLoading={ssoLoading}
               errorMessage={signInErrors.fields.identifier ? "কোন একাউন্ট খুজে পাওয়া যায়নি" : undefined}
             />
           ) : mode === "signup" ? (
@@ -811,6 +857,7 @@ export default function AuthSheetScreen() {
               onSubmit={handleSignupSubmit}
               onGoogleSignIn={handleGoogleSignIn}
               submitting={signUpFetchStatus === "fetching" || ssoLoading}
+              googleLoading={ssoLoading}
               errorMessage={signUpErrors.fields.emailAddress ? "অলরেডি একাউন্ট আছে, লগিন করুন" : undefined}
             />
           ) : (

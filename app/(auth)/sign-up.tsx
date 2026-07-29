@@ -3,7 +3,9 @@ import { useSSO } from "@clerk/expo";
 import { Image } from "expo-image";
 import { router, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { ImageSourcePropType, Text, TouchableOpacity, View } from "react-native";
+import * as WebBrowser from "expo-web-browser";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, ImageSourcePropType, Text, TouchableOpacity, View } from "react-native";
 
 const COVER_SLOT_SIZE = { width: 89.911, height: 124.573 };
 const COVER_CARD_SIZE = { width: 82.104, height: 119.706 };
@@ -106,13 +108,15 @@ type AuthButtonProps = {
   top: number;
   variant: "primary" | "white";
   onPress?: () => void;
+  loading?: boolean;
 };
 
-function AuthButton({ icon, iconSize, label, top, variant, onPress }: AuthButtonProps) {
+function AuthButton({ icon, iconSize, label, top, variant, onPress, loading }: AuthButtonProps) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
+      disabled={loading}
       // Above the book covers and glow image below (the glow's box overlaps
       // the google button's area), matching Figma's own paint order which
       // puts these buttons in front, unaffected.
@@ -123,16 +127,22 @@ function AuthButton({ icon, iconSize, label, top, variant, onPress }: AuthButton
           : "flex-row items-center justify-center gap-2 rounded-full border border-black/10 bg-white"
       }
     >
-      <Image source={icon} style={iconSize} contentFit="contain" />
-      <Text
-        className={
-          variant === "primary"
-            ? "font-aeonik-medium text-[16px] leading-[19.2px] text-white"
-            : "font-aeonik-medium text-[16px] leading-[19.2px] text-black"
-        }
-      >
-        {label}
-      </Text>
+      {loading ? (
+        <ActivityIndicator color={variant === "primary" ? "#ffffff" : "#000000"} />
+      ) : (
+        <>
+          <Image source={icon} style={iconSize} contentFit="contain" />
+          <Text
+            className={
+              variant === "primary"
+                ? "font-aeonik-medium text-[16px] leading-[19.2px] text-white"
+                : "font-aeonik-medium text-[16px] leading-[19.2px] text-black"
+            }
+          >
+            {label}
+          </Text>
+        </>
+      )}
     </TouchableOpacity>
   );
 }
@@ -140,17 +150,35 @@ function AuthButton({ icon, iconSize, label, top, variant, onPress }: AuthButton
 /** Figma "Sign-up with email" (node 6426:904). */
 export default function SignUpScreen() {
   const { startSSOFlow } = useSSO();
+  const [ssoLoading, setSsoLoading] = useState(false);
+
+  // Pre-warms Android's Custom Tab process so tapping "Continue with
+  // google" doesn't pay that cold-start cost on top of the OAuth round
+  // trip — shaves visible latency off the browser-open/close handoff.
+  useEffect(() => {
+    void WebBrowser.warmUpAsync();
+    return () => {
+      void WebBrowser.coolDownAsync();
+    };
+  }, []);
 
   const handleGoogleSignIn = async () => {
+    setSsoLoading(true);
     try {
       const { createdSessionId, setActive } = await startSSOFlow({ strategy: "oauth_google" });
       if (createdSessionId && setActive) {
         await setActive({ session: createdSessionId });
-        router.replace("/home");
+        // dismissAll() first clears the onboarding/sign-up screens still
+        // sitting underneath in the stack — without it, back from home would
+        // walk straight back through the auth flow instead of leaving the app.
+        router.dismissAll();
+        router.replace("/onboarding/welcome");
       }
       // No createdSessionId means the user cancelled — nothing to do.
     } catch (err) {
       console.error(JSON.stringify(err, null, 2));
+    } finally {
+      setSsoLoading(false);
     }
   };
 
@@ -206,6 +234,7 @@ export default function SignUpScreen() {
         top={650}
         variant="white"
         onPress={handleGoogleSignIn}
+        loading={ssoLoading}
       />
 
       <Text
