@@ -38,7 +38,7 @@ export function PrimaryButton({
     <TouchableOpacity
       activeOpacity={0.8}
       className={cn(
-        "h-12 w-full items-center justify-center rounded-full",
+        "h-[53px] w-full items-center justify-center rounded-full",
         containerVariantClasses[variant],
         className,
       )}
@@ -46,7 +46,7 @@ export function PrimaryButton({
     >
       <Text
         className={cn(
-          "font-li-ador-bold text-h4",
+          "font-li-ador-semibold text-h4",
           textVariantClasses[variant],
           textClassName,
         )}
