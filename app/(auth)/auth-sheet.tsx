@@ -477,7 +477,7 @@ function VerifyCard({ email, code, onChangeCode, onSubmit, onResend, onBack, sub
 
       <Text
         style={{ position: "absolute", left: 40, top: 300, width: 313 }}
-        className="text-center font-kalpurush text-[14px] leading-[18px] text-[#6d6d6d]"
+        className="text-center font-kalpurush text-[14px] leading-4.5 text-[#6d6d6d]"
       >
         <Text className="underline" onPress={onBack}>
           ইমেইল পরিবর্তন করুন
