@@ -30,6 +30,7 @@ export default function RootLayout() {
     [fontFamily.aeonikBold]: require("@/assets/fonts/Aeonik-Bold.ttf"),
     [fontFamily.liAdorRegular]: require("@/assets/fonts/LiAdorNoirrit-Regular.ttf"),
     [fontFamily.liAdorSemiBold]: require("@/assets/fonts/LiAdorNoirrit-SemiBold.ttf"),
+    [fontFamily.liAdorSemiBoldItalic]: require("@/assets/fonts/LiAdorNoirrit-SemiBoldItalic.ttf"),
     [fontFamily.liAdorBold]: require("@/assets/fonts/LiAdorNoirrit-Bold.ttf"),
     [fontFamily.kalpurush]: require("@/assets/fonts/Kalpurush-Regular.ttf"),
   });

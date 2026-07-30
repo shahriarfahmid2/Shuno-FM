@@ -4,6 +4,7 @@
  */
 export const colors = {
   primary: "#e04242",
+  accent: "#ff2e2e",
   white: "#ffffff",
   black: "#000000",
   ink: "#000000",

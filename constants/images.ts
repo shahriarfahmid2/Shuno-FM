@@ -43,6 +43,22 @@ import onboardingBook12 from "@/assets/images/onboarding/book-12.png";
 import onboardingBook13 from "@/assets/images/onboarding/book-13.png";
 import onboardingMessageIcon from "@/assets/images/onboarding/message-icon.png";
 import onboardingGmailIcon from "@/assets/images/onboarding/google-icon-new.png";
+import welcomeGlowTopLeft from "@/assets/images/welcome/glow-top-left.png";
+import welcomeGlowRight from "@/assets/images/welcome/glow-right.png";
+import welcomeGlowBottomLeft from "@/assets/images/welcome/glow-bottom-left.png";
+import homeGlow from "@/assets/images/home/glow-bg.png";
+import homeBookAtomicHabits from "@/assets/images/home/book-atomic-habits.png";
+import homeBookPoliticsEdge from "@/assets/images/home/book-politics-edge.png";
+import homeBookLetThemTheory from "@/assets/images/home/book-let-them-theory.png";
+import homeBookRichDadPoorDad from "@/assets/images/home/book-rich-dad-poor-dad.png";
+import homePodcast1 from "@/assets/images/home/podcast-1.png";
+import homePodcast2 from "@/assets/images/home/podcast-2.png";
+import homePodcast3 from "@/assets/images/home/podcast-3.png";
+import homeAvatarAlexHormozi from "@/assets/images/home/avatar-alex-hormozi.png";
+import homeAvatarGaryVaynerchuk from "@/assets/images/home/avatar-gary-vaynerchuk.png";
+import homeAvatarRajShamani from "@/assets/images/home/avatar-raj-shamani.png";
+import homeAvatarStevenBartlett from "@/assets/images/home/avatar-steven-bartlett.png";
+import homeAvatarKevinOleary from "@/assets/images/home/avatar-kevin-oleary.png";
 
 export const images = {
   logo,
@@ -90,4 +106,20 @@ export const images = {
   onboardingBook13,
   onboardingMessageIcon,
   onboardingGmailIcon,
+  welcomeGlowTopLeft,
+  welcomeGlowRight,
+  welcomeGlowBottomLeft,
+  homeGlow,
+  homeBookAtomicHabits,
+  homeBookPoliticsEdge,
+  homeBookLetThemTheory,
+  homeBookRichDadPoorDad,
+  homePodcast1,
+  homePodcast2,
+  homePodcast3,
+  homeAvatarAlexHormozi,
+  homeAvatarGaryVaynerchuk,
+  homeAvatarRajShamani,
+  homeAvatarStevenBartlett,
+  homeAvatarKevinOleary,
 };

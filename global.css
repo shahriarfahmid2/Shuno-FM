@@ -12,6 +12,7 @@
 @theme {
   /* Colors */
   --color-primary: #e04242;
+  --color-accent: #ff2e2e;
   --color-ink: #000000;
   --color-ink-secondary: #393939;
   --color-ink-tertiary: #4e4e4e;
@@ -25,6 +26,7 @@
   --font-aeonik-bold: "Aeonik-Bold";
   --font-li-ador-regular: "LiAdorNoirrit-Regular";
   --font-li-ador-semibold: "LiAdorNoirrit-SemiBold";
+  --font-li-ador-semibold-italic: "LiAdorNoirrit-SemiBoldItalic";
   --font-li-ador-bold: "LiAdorNoirrit-Bold";
   --font-kalpurush: "Kalpurush-Regular";
 

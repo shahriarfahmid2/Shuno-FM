@@ -16,6 +16,7 @@ export const fontFamily = {
   aeonikBold: "Aeonik-Bold",
   liAdorRegular: "LiAdorNoirrit-Regular",
   liAdorSemiBold: "LiAdorNoirrit-SemiBold",
+  liAdorSemiBoldItalic: "LiAdorNoirrit-SemiBoldItalic",
   liAdorBold: "LiAdorNoirrit-Bold",
   kalpurush: "Kalpurush-Regular",
 } as const;
