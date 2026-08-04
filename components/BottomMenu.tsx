@@ -1,5 +1,6 @@
 import { colors } from "@/constants/theme";
 import { cn } from "@/lib/cn";
+import { LinearGradient } from "expo-linear-gradient";
 import type { ComponentType } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
@@ -104,11 +105,33 @@ export function BottomMenu({
   return (
     <View
       className={cn(
-        "h-[75px] w-full flex-row items-center justify-around border-t",
-        isWhite ? "border-[#343434] bg-white" : "border-white/25 bg-black",
+        "h-18.75 w-full flex-row items-center",
+        isWhite ? "bg-white" : "bg-black",
         className,
       )}
     >
+      <LinearGradient
+        pointerEvents="none"
+        colors={
+          isWhite
+            ? [
+                "rgba(255,255,255,0)",
+                "rgba(255,255,255,0.12)",
+                "rgba(255,255,255,0.25)",
+                "rgba(255,255,255,0.7)",
+                "#ffffff",
+              ]
+            : [
+                "rgba(0,0,0,0)",
+                "rgba(0,0,0,0.12)",
+                "rgba(0,0,0,0.25)",
+                "rgba(0,0,0,0.7)",
+                "#000000",
+              ]
+        }
+        locations={[0, 0.25, 0.5, 0.75, 1]}
+        style={{ position: "absolute", left: 0, right: 0, top: -48, height: 48 }}
+      />
       {items.map(({ key, label, Icon }) => (
         <TouchableOpacity
           key={key}
@@ -116,7 +139,7 @@ export function BottomMenu({
           onPress={() => onSelect?.(key)}
           accessibilityRole="button"
           accessibilityState={{ selected: key === active }}
-          className="items-center gap-1"
+          className="h-full flex-1 items-center justify-center gap-1"
         >
           <Icon />
           <Text

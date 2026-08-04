@@ -4,7 +4,7 @@
  *
  * Three typefaces:
  * - Aeonik          — English headings (Regular / Medium / Bold)
- * - Li Ador Noirrit  — Bangla headings (Regular / SemiBold / Bold)
+ * - Li Ador Noirrit  — Bangla headings (Light / Regular / SemiBold / Bold)
  * - Kalpurush        — Bangla body text (Regular only)
  *
  * `fontFamily` values double as the keys used to register fonts with
@@ -14,6 +14,7 @@ export const fontFamily = {
   aeonikRegular: "Aeonik-Regular",
   aeonikMedium: "Aeonik-Medium",
   aeonikBold: "Aeonik-Bold",
+  liAdorLight: "LiAdorNoirrit-Light",
   liAdorRegular: "LiAdorNoirrit-Regular",
   liAdorSemiBold: "LiAdorNoirrit-SemiBold",
   liAdorSemiBoldItalic: "LiAdorNoirrit-SemiBoldItalic",

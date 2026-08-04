@@ -83,6 +83,7 @@ type CarouselCardProps = {
   dragX: Animated.Value;
   relativeSlot: number;
   onSelect: (absoluteIndex: number) => void;
+  onOpen: (book: FeaturedBook) => void;
 };
 
 /**
@@ -103,6 +104,7 @@ const CarouselCard = memo(function CarouselCard({
   dragX,
   relativeSlot,
   onSelect,
+  onOpen,
 }: CarouselCardProps) {
   // Built exactly once per mounted card: `dragX` is a ref and `absoluteIndex`
   // is this card's identity, so both are constant for its whole lifetime.
@@ -129,12 +131,13 @@ const CarouselCard = memo(function CarouselCard({
   }, [dragX, absoluteIndex]);
 
   const isNeighbour = Math.abs(relativeSlot) === 1;
+  const isCenter = relativeSlot === 0;
 
   return (
     <Animated.View style={[styles.card, { zIndex: 10 - Math.abs(relativeSlot) }, animatedStyle]}>
       <Pressable
-        onPress={() => onSelect(absoluteIndex)}
-        disabled={!isNeighbour}
+        onPress={() => (isCenter ? onOpen(book) : onSelect(absoluteIndex))}
+        disabled={!isNeighbour && !isCenter}
         style={styles.press}
       >
         <BookCover source={book.cover} width={CARD_WIDTH} height={CARD_HEIGHT} radius={CARD_RADIUS} />
@@ -145,6 +148,7 @@ const CarouselCard = memo(function CarouselCard({
 
 type FeaturedBookCarouselProps = {
   books: FeaturedBook[];
+  onOpenBook: (book: FeaturedBook) => void;
 };
 
 /**
@@ -159,7 +163,7 @@ type FeaturedBookCarouselProps = {
  * one source — there is no second update path (a state commit, an imperative
  * reset) that has to land on the same frame to look right.
  */
-export function FeaturedBookCarousel({ books }: FeaturedBookCarouselProps) {
+export function FeaturedBookCarousel({ books, onOpenBook }: FeaturedBookCarouselProps) {
   // Unbounded, so a mounted card's key never has to be reassigned to a
   // different book. Wrapped with `mod` only where a book is looked up.
   const [activeIndex, setActiveIndex] = useState(0);
@@ -274,6 +278,7 @@ export function FeaturedBookCarousel({ books }: FeaturedBookCarouselProps) {
             dragX={dragX}
             relativeSlot={absoluteIndex - activeIndex}
             onSelect={selectCard}
+            onOpen={onOpenBook}
           />
         ))}
       </View>

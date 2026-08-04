@@ -1,6 +1,6 @@
 # Fonts
 
-The 7 files below are the ones actually loaded by `useFonts` in
+The 8 files below are the ones actually loaded by `useFonts` in
 [app/\_layout.tsx](../../app/_layout.tsx) and referenced by
 `constants/theme/typography.ts` / `global.css`. Don't rename them without
 updating both.
@@ -10,13 +10,14 @@ updating both.
 | `Aeonik-Regular.ttf` | Aeonik | Regular | English body/headings |
 | `Aeonik-Medium.ttf` | Aeonik | Medium | English headings |
 | `Aeonik-Bold.ttf` | Aeonik | Bold | English headings |
+| `LiAdorNoirrit-Light.ttf` | Li Ador Noirrit | Light | Explore category pills |
 | `LiAdorNoirrit-Regular.ttf` | Li Ador Noirrit | Regular | Bangla headings |
 | `LiAdorNoirrit-SemiBold.ttf` | Li Ador Noirrit | SemiBold | Bangla headings |
 | `LiAdorNoirrit-Bold.ttf` | Li Ador Noirrit | Bold | Bangla headings |
 | `Kalpurush-Regular.ttf` | Kalpurush | Regular | Bangla body text |
 
 The other `.ttf` files in this folder (Aeonik Air/Light/Black/Thin + italics,
-`Aeonik_OVERVIEW-*`, Li Ador Noirrit ExtraLight/Light + italics) are unused
+`Aeonik_OVERVIEW-*`, Li Ador Noirrit ExtraLight/Light Italic) are unused
 extra weights from the font package — kept for future use, not wired into
 the type scale yet.
 

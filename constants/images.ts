@@ -59,6 +59,21 @@ import homeAvatarGaryVaynerchuk from "@/assets/images/home/avatar-gary-vaynerchu
 import homeAvatarRajShamani from "@/assets/images/home/avatar-raj-shamani.png";
 import homeAvatarStevenBartlett from "@/assets/images/home/avatar-steven-bartlett.png";
 import homeAvatarKevinOleary from "@/assets/images/home/avatar-kevin-oleary.png";
+import exploreGlow from "@/assets/images/explore/glow-bg.png";
+import libraryGlow from "@/assets/images/library/glow-bg.png";
+import historyBookExactlyWhatToSay from "@/assets/images/history/book-exactly-what-to-say.png";
+import settingsGlow from "@/assets/images/settings/glow-bg.png";
+import settingsPremiumStar from "@/assets/images/settings/premium-star.png";
+import subscriptionPremiumIcon from "@/assets/images/subscription/premium-icon.png";
+import subscriptionBkashLogo from "@/assets/images/subscription/bkash-logo.png";
+import subscriptionSslcommerzLogo from "@/assets/images/subscription/sslcommerz-logo.png";
+import profileAvatar from "@/assets/images/profile/avatar-fahmid.png";
+import authorGlow from "@/assets/images/author/glow-bg.png";
+import authorAvatarRobertKiyosaki from "@/assets/images/author/avatar-robert-kiyosaki.png";
+import authorAvatarMelRobbins from "@/assets/images/author/avatar-mel-robbins.png";
+import authorAvatarJamesClear from "@/assets/images/author/avatar-james-clear.png";
+import authorAvatarRoryStewart from "@/assets/images/author/avatar-rory-stewart.png";
+import playerGlow from "@/assets/images/player/glow-bg.png";
 
 export const images = {
   logo,
@@ -122,4 +137,19 @@ export const images = {
   homeAvatarRajShamani,
   homeAvatarStevenBartlett,
   homeAvatarKevinOleary,
+  exploreGlow,
+  libraryGlow,
+  historyBookExactlyWhatToSay,
+  settingsGlow,
+  settingsPremiumStar,
+  subscriptionPremiumIcon,
+  subscriptionBkashLogo,
+  subscriptionSslcommerzLogo,
+  profileAvatar,
+  authorGlow,
+  authorAvatarRobertKiyosaki,
+  authorAvatarMelRobbins,
+  authorAvatarJamesClear,
+  authorAvatarRoryStewart,
+  playerGlow,
 };

@@ -32,7 +32,7 @@ export function PlayButton({
           <Ionicons name="play" size={12} color={colors.primary} style={{ marginLeft: 1 }} />
         </View>
       </View>
-      <Text className="font-li-ador-regular text-h4 text-white">{label}</Text>
+      <Text className="font-li-ador-regular text-[18px] leading-[22px] text-white">{label}</Text>
     </TouchableOpacity>
   );
 }
