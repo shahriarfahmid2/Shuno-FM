@@ -28,6 +28,7 @@ export default function RootLayout() {
     [fontFamily.aeonikRegular]: require("@/assets/fonts/Aeonik-Regular.ttf"),
     [fontFamily.aeonikMedium]: require("@/assets/fonts/Aeonik-Medium.ttf"),
     [fontFamily.aeonikBold]: require("@/assets/fonts/Aeonik-Bold.ttf"),
+    [fontFamily.liAdorLight]: require("@/assets/fonts/LiAdorNoirrit-Light.ttf"),
     [fontFamily.liAdorRegular]: require("@/assets/fonts/LiAdorNoirrit-Regular.ttf"),
     [fontFamily.liAdorSemiBold]: require("@/assets/fonts/LiAdorNoirrit-SemiBold.ttf"),
     [fontFamily.liAdorSemiBoldItalic]: require("@/assets/fonts/LiAdorNoirrit-SemiBoldItalic.ttf"),
